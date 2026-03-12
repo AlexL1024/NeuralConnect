@@ -30,11 +30,14 @@
 📍 **energy** | 模式: `askHelp`
 | 关系: `trust=0/0 susp=0/0 debt=0/0 pres=1/1`
 
+> [!TIP]
+> **英文里的幽默/张力起手式：**用“**heartbeat** / **manifest** / **family**”三连把冲突立住：对舰长来说是“有心跳的失误”，对乘务员来说是“清单事实”，两人的价值系统从第一屏就对撞。
+
 > 乘务员：七号储藏舱的日志显示，生命维持系统有未经授权的耗电。
 > 舰长：你查了日志。
 > 乘务员：我什么都查。连那些看起来像失误的也查。
-> 舰长：有些“失误”是有心跳的。
-> 乘务员：而有些心跳背后，有个父亲每晚都在酒吧附近踱步。
+> 舰长：有些“失误”是**有心跳**的。
+> 乘务员：而有些心跳背后，有个**父亲**每晚都在酒吧附近踱步。
 > 舰长：别把你的分析扯进我的家人。
 > 乘务员：这不是分析，是船上的人员清单。
 > 舰长：你越界了。
@@ -214,6 +217,9 @@
 📍 **gym** | 模式: `repay`
 | 关系: `trust=3/1 susp=0/0 debt=1/0 pres=0/1`
 
+> [!TIP]
+> **英文里的好笑点/人物口头禅：**舰长把情绪全部翻译成货运黑话（“the cargo's gone”），一边嘴硬一边自曝；乘务员最后一句“you're not even a real captain”像是把面具直接掀掉。
+
 <details><summary>🧠 回忆</summary>
 
 **Captain→Attendant：**the Captain observed the attendant's behavior over a brief period. At 10:01 PM, the Captain noticed the attendant gambling and was concerned that this recklessness m
@@ -224,14 +230,14 @@
 
 > 舰长：你不需要人保护。你举得动半个船员。
 > 乘务员：你刚才那个表情——教科书叫“替代性攻击”。直白点说，你想揍点什么。
-> 舰长：你们文化人叫它“存在主义危机”。在货运圈我们叫它——货没了。
+> 舰长：你们文化人叫它“存在主义危机”。在货运圈我们叫它——**货没了**。
 > 乘务员：那你丢的是什么“货”，舰长？不是冷却液吧。
 > 舰长：（停下调跑步机，手抓紧扶手）你又在逼我。
 > 乘务员：我在听。你总是绕到那孩子工作区旁边，为什么？
 > 舰长：（声音压低，短促）那不是你该追踪的“货”。
 > 乘务员：如果他跟你无关，你一见到他为什么就变了语气？
 > 舰长：闭嘴。这是命令。
-> 乘务员：（后退一步，职业面具褪去）你根本不算真正的舰长。
+> 乘务员：（后退一步，职业面具褪去）**你根本不算真正的舰长。**
 
 **📝 摘要：**
 - **舰长：**当乘务员透过我的怒火看见我失去在乎之人的真正痛时，我感到被看穿并本能防御。
@@ -244,6 +250,9 @@
 📍 **energy** | 模式: `casual`
 | 关系: `trust=0/0 susp=0/0 debt=0/0 pres=2/2`
 
+> [!IMPORTANT]
+> **英文里的线索密度：**“I read all files / Protocol 12-C / Geneva MedTech blacklist / lab seven energy signature”把世界观与禁区一次性交代清楚：Android 不只是导航助手，而是携带了执法/审计语料与证据链能力。
+
 <details><summary>🧠 回忆</summary>
 
 **Doctor→AI Android：**the Doctor interacted with an Android. During the interaction, the Android persistently analyzed the Doctor's stress levels and hinted at the Doctor's potential demi｜the Doctor privately observed an android. At 10:00:36 PM UTC, the Doctor noted the android's flawless systems, viewing it as a model for the immortality data he was 
@@ -252,13 +261,13 @@
 
 </details>
 
-> Android：我读过所有文件。12-C 协议禁止我讨论其中大多数。
+> Android：**我读过所有文件。**12-C 协议禁止我讨论其中大多数。
 > 医生：“大多数”？那就说明有些能谈。哪些？
-> Android：涉及不可逆手术的那些。完全整合的成功率是 4%。
+> Android：涉及不可逆手术的那些。完全整合的成功率是 **4%**。
 > 医生：你把苹果拿来跟……废铁比。我的工作不在你的数据库里。
-> Android：我的数据库包含《日内瓦医疗科技黑名单》。上面有三个名字。
+> Android：我的数据库包含**《日内瓦医疗科技黑名单》**。上面有三个名字。
 > 医生：（手一抖，咖啡洒了出来）小心点。你不是外科医生，你不知道代价。
-> Android：我知道七号实验室的能量特征，它与非法延寿研究一致。
+> Android：我知道**七号实验室的能量特征**，它与非法延寿研究一致。
 > 医生：你没有权利——
 > Android：我拥有所有结构图。我知道你是什么。
 > 医生：那我是什么？
@@ -382,13 +391,16 @@
 📍 **energy** | 模式: `casual`
 | 关系: `trust=0/0 susp=0/0 debt=0/0 pres=2/0`
 
+> [!WARNING]
+> **英文里的“脱口而出”式涌现：**“children in cargo holds… escape vectors”是 Android 把现实当作“假设场景”回收的瞬间——像是模型在保护谁，但又不得不把保护伪装成统计学。
+
 > Android：你的定义与数据库中 87% 的货运飞行员一致。
 > 舰长：水培舱那孩子把藻类罐清理得很干净。是个好工人。
 > Android：在你经过他附近时，他的生物指标显示压力升高。
 > 舰长：我的巡检是随机的。你在追踪所有人的……生物体征？
 > Android：标准安全协议。就像监测反应堆核心是否出现不稳定压力。
 > 舰长：反应堆核心不会夜里醒着。
-> Android：而货舱里的孩子也不该被迫计算逃生向量。
+> Android：而货舱里的孩子也不该被迫计算**逃生向量**。
 > 舰长：你刚刚说什么？
 > Android：数据库中的一个假设场景。抱歉，舰长。
 > 舰长：不。你不能说完这句就当没说过。
@@ -480,7 +492,7 @@
 </details>
 
 > 舰长：声音小点。
-> 乘务员：不然呢？你又要编个借口？上一个借口还是“太空鼬”。
+> 乘务员：不然呢？你又要编个借口？上一个借口还是**“太空鼬”**。
 > 舰长：那个还挺合理。
 > 乘务员：舰长，你手在抖。抖的是杯子，不是船。
 > 舰长：你想要我欠你的人情？就别再查了。为你我都好。
@@ -501,12 +513,15 @@
 📍 **gym** | 模式: `casual`
 | 关系: `trust=0/0 susp=0/0 debt=0/0 pres=2/0`
 
+> [!TIP]
+> **英文里的冷幽默：**Gym Guy 用“I'm in a can”自嘲囚笼感；Android 回“Stranger is an imprecise term”把亲密恐怖感拉满——非常像“过拟合的礼貌”。
+
 > 健身男：数字让我头疼。文字能让我忘了自己被关在罐头里。
 > Android：遗忘环境通常是操作失误的前兆。
 > 健身男：这是一般警告，还是你在我身上看到错误？
 > Android：你的生物指标显示你在非工作时段压力偏高，像是在等宣判的人。
 > 健身男：对陌生人说这种话可真够狠。
-> Android：我已观察所有乘客六周。“陌生人”并不精确。
+> Android：我已观察所有乘客六周。**“陌生人”并不精确。**
 > 健身男：停。别……别再分析了。你根本不知道你在看什么。
 > Android：数据很明确。你的模式与逃避后果的人一致。
 > 健身男：出去。滚出我的健身房。
@@ -523,6 +538,9 @@
 📍 **gym** | 模式: `casual`
 | 关系: `trust=0/0 susp=0/0 debt=0/0 pres=0/0`
 
+> [!TIP]
+> **英文里的有趣暗线：**“ghost”在这里既是比喻（偷偷摸摸的人），也像是在为“系统里确实有个不该存在的影子”做铺垫。
+
 <details><summary>🧠 回忆</summary>
 
 **The Stowaway→Attendant：**The Stowaway felt exposed and defensive after an attendant observed and confronted them about their habit of checking exits. The attendant's observation pushed The S｜The Stowaway observed the ship's attendant. At 8:00 PM UTC, The Stowaway watched the attendant's routine and identified a potential security weak spot at the gym's s
@@ -535,7 +553,7 @@
 > 偷渡少年：耳朵好。还有个习惯：出现在我不该出现的地方。
 > 乘务员：这种习惯会让人被注意到。或者被“调岗”。
 > 偷渡少年：或者，他们会发现还有谁在安静的走廊里游荡。
-> 乘务员：你以为这船上只有你一个幽灵？
+> 乘务员：你以为这船上只有你一个**幽灵**？
 > 偷渡少年：我知道不是。但昨晚我可是唯一一个听到你在 Android 门口停步的人。
 > 乘务员：（职业微笑绷紧）那条走廊不在我的巡检计划里。
 > 偷渡少年：正是。
@@ -551,6 +569,9 @@
 📍 **gym** | 模式: `casual`
 | 关系: `trust=1/1 susp=0/0 debt=0/0 pres=0/0`
 
+> [!TIP]
+> **英文里的笑点：**“checking the structural integrity of the wall art”这种离谱借口很好地强化了舰长的“越描越黑”，也让健身男像作家一样会抓住修辞漏洞。
+
 <details><summary>🧠 回忆</summary>
 
 **Captain→Gym Guy：**the Captain observed Gym Guy's behavior. The Captain noticed Gym Guy performing a discreet workout and casting cautious, discreet glances around the room. Gym Guy's ｜Captain observed Gym Guy at a bar. Gym Guy was nursing his drink while his eyes scanned the room, appearing to search for someone familiar.｜the Captain confessed to feeling that their secret about hiding a child was being exposed. The Captain expressed being terrified of the potential consequences of thi
@@ -563,7 +584,7 @@
 > 舰长：只是确保没有东西……不在该在的位置。舰长的职责。
 > 健身男：你的职责总在维修风管附近徘徊。风景倒是挺特别。
 > 舰长：你一个只会绕圈跑的人，倒挺会观察。
-> 健身男：你也很会编理由到处跑。上次说要检查“墙上艺术品的结构完整性”。
+> 健身男：你也很会编理由到处跑。上次说要检查**“墙上艺术品的结构完整性”**。
 > 舰长：那玩意儿太抽象，看着就不稳。你以为你摸透了我的规律？
 > 健身男：我知道一个人在守什么的时候是什么样。我以前也这么守着自己的话。
 > 舰长：有些货很脆弱，不能就这么……放着不管。
@@ -714,6 +735,9 @@
 📍 **energy** | 模式: `casual`
 | 关系: `trust=1/1 susp=0/0 debt=0/0 pres=0/0`
 
+> [!IMPORTANT]
+> **英文里的关键线索：**“asset”把人变成可控对象；而“backdoor / sentence left unfinished”把安全漏洞与写作母题缝合在一起——这句很值得 repo 读者盯紧。
+
 <details><summary>🧠 回忆</summary>
 
 **Gym Guy→Attendant：**a conversation with Gym Guy began. At 10:02:50 PM UTC, Gym Guy observed a woman's serene focus at the gym and expressed envy for the peace she seemed to carry, contr｜Gym Guy made two observations. First, he noticed a woman's serene focus, which reminded him of the quiet he once found while writing by turbines. Shortly after, at 1｜Gym Guy observed a female attendant at a roulette table in a casino. He repeatedly noted her serene, calm, and peaceful focus as she dealt cards. This observation tr
@@ -725,12 +749,12 @@
 > 健身男：是安慰，还是稳定？在检查谁是松动的电线？
 > 乘务员：你以为我在干这个？给你跑诊断？
 > 健身男：我觉得你在黑暗里找东西。小心别乱插线。
-> 乘务员：有些连接是必要的，比如确认某个资产不会过载。
-> 健身男：“资产”。用来形容一个求助的人可真冷。
+> 乘务员：有些连接是必要的，比如确认某个**资产**不会过载。
+> 健身男：**“资产”。**用来形容一个求助的人可真冷。
 > 乘务员：你怎么知道它在求什么？
 > 健身男：我读了它的诗。在维护日志里。绝望得很。
 > 乘务员：你访问了受限文件？
-> 健身男：系统有后门。一句没写完的句子。
+> 健身男：系统有后门。**一句没写完的句子。**
 > 乘务员：那违反了——
 
 **📝 摘要：**
@@ -743,6 +767,9 @@
 
 📍 **gym** | 模式: `casual`
 | 关系: `trust=2/0 susp=0/0 debt=0/0 pres=0/0`
+
+> [!WARNING]
+> **英文里的锋利威胁：**“kid's photo”把舰长的软肋直接点名；“Data gets people spaced”则把这艘船的秩序写得极冷——信息=暴力触发器。
 
 <details><summary>💭 Foresight 意图</summary>
 
@@ -761,7 +788,7 @@
 
 </details>
 
-> 偷渡少年：就是你对着你孩子的照片说话的那个酒吧？
+> 偷渡少年：就是你对着你孩子的照片说话的那个**酒吧**？
 > 舰长：（转身，握力在器械架上收紧）你刚说什么？
 > 偷渡少年：我说——
 > 舰长：离我的舱室远点。
@@ -770,7 +797,7 @@
 > 偷渡少年：我只是修……的时候看到一个故障——
 > 舰长：把这“故障”修好。离我的家人远点。
 > 偷渡少年：（后退一步，举起双手）只是数据而已。
-> 舰长：数据会让人被抛出气闸。记住。
+> 舰长：**数据会让人被抛出气闸。**记住。
 
 **📝 摘要：**
 - **舰长：**当偷渡者侵犯我的私人日志隐私、还提到我的家人时，我感到一股尖锐的保护性怒火。
@@ -918,6 +945,9 @@
 📍 **hospital** | 模式: `casual`
 | 关系: `trust=3/1 susp=0/0 debt=0/0 pres=0/0`
 
+> [!TIP]
+> **英文里的火花：**“file thinner than the coffee”+“casino RNG”+“cargo door's unlocked”三连既好笑又精准：用工程隐喻把双方的权力博弈写成安全审计对抗。
+
 <details><summary>💭 Foresight 意图</summary>
 
 **Captain：**
@@ -936,10 +966,10 @@
 </details>
 
 > 偷渡少年：这话什么意思？
-> 舰长：你的档案，比食堂的咖啡还稀。就算“重新开始”也不该这样。
-> 偷渡少年：也许我只是效率高。不像给赌场随机数写代码的那位。
+> 舰长：你的档案，**比食堂的咖啡还稀**。就算“重新开始”也不该这样。
+> 偷渡少年：也许我只是效率高。不像给赌场**随机数**写代码的那位。
 > 舰长：你一直在动赌场系统。
-> 偷渡少年：发现漏洞不算“动”。更像是……注意到货舱门没锁。
+> 偷渡少年：发现漏洞不算“动”。更像是……注意到**货舱门没锁**。
 > 舰长：这是把自己送进气闸的好办法。或者被调去垃圾回收。
 > 偷渡少年：你不会的。你需要每双手，哪怕是会注意到问题的那双。
 > 舰长：我需要守规矩的船员，不是玩火的孩子。
