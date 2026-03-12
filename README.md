@@ -1,127 +1,81 @@
-![Poster](assets/Poster.jpg)
-# NeuralConnect — AI-driven narrative mystery (iOS)
+# NeuralConnect
 
-NeuralConnect is an iOS SpriteKit narrative game set aboard a Mars-bound cyberpunk shuttle. You explore the ship, observe NPCs, listen to their conversations, and use **Neural Connect** to “hack” into what characters remember — then connect the clues.
+NeuralConnect is an iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
 
-The game blends:
-- **2D exploration** (SpriteKit) with a tap-to-move shuttle map
-- **AI-generated NPC dialogue** (on-device Apple Intelligence when available, or DeepSeek)
-- **Persistent long-term memory** via **EverMemOS** (so NPCs can remember across sessions)
+You explore the ship, listen in on NPC conversations, and use **Neural Connect** to dive into what characters remember — then connect the clues to uncover the truth.
 
-## Gameplay (User POV)
+## What players do
 
-NeuralConnect is designed around short, repeatable loops:
+NeuralConnect is built around a simple loop:
 
-- **Move**: Tap anywhere to move your character around the map.
-- **Listen**: If 2+ NPCs are nearby in the same zone, you can trigger a conversation and tap through the dialogue.
-- **Hack**: If exactly 1 NPC is nearby, you can Neural Connect to that NPC and view their memory logs.
-- **Investigate**: Each hack updates your **clue board** (a lightweight knowledge graph) to help you connect entities, topics, and relationships.
+- **Explore** a 2D shuttle map (tap to move).
+- **Listen** when multiple NPCs are nearby.
+- **Connect** to a single NPC to review their memory trail.
+- **Investigate** with a visual clue board that grows as you learn more.
 
-The shuttle is split into 6 zones:
-`Gym`, `Medbay`, `Lab`, `Power Room`, `Bar`, `Casino`.
+The ship is divided into six zones: `Gym`, `Medbay`, `Lab`, `Power Room`, `Bar`, `Casino`.
 
-## AI + Memory Backend
+## Key features
 
-NeuralConnect uses two distinct “intelligence” layers:
+- **AI-driven dialogue** between NPCs (with fallback when AI is unavailable)
+- **Persistent character memory** so NPCs can build context over time
+- **Clue board / knowledge graph** that helps you spot relationships and recurring topics
+- **English / 中文** support
 
-### 1) Dialogue generation
+## Modes & settings (in-app)
 
-NPC-to-NPC conversations are generated at runtime using one of:
-- **DeepSeek** (recommended): enabled via API key in Settings
-- **Apple FoundationModels** (on-device): used automatically when available on iOS 26+
-- **Fallback**: a simple placeholder provider when no model is available
+From the gear icon you can:
 
-### 2) Persistent long-term memory (EverMemOS)
+- Switch **Language** (English / 中文)
+- Choose the **AI dialogue engine** (optional)
+- Configure the **memory backend** (optional)
+- **Delete all NPC memories** (for a clean playthrough / testing)
+- Replay the intro story sequence
 
-NPCs store conversation summaries and observations to **EverMemOS** so they can recall context later. This is not a per-session chat log — it’s long-term memory that accumulates.
-
-Two deployment modes are supported:
-
-**Local**
-- Point the app at your local EverMemOS server (e.g. `http://localhost:1995` or `http://192.168.x.x:1995`)
-- No token required
-
-**Cloud**
-- Point the app at your hosted EverMemOS endpoint
-- Requires an auth token (stored in Keychain)
-
-## Getting Started
+## Getting started (dev)
 
 ### Requirements
 
-- macOS with **Xcode 26+**
-- iOS **26.0+** (device or Simulator)
-- An EverMemOS backend (local or cloud) if you want persistent memory
+- Xcode 26+
+- iOS 26+ (Simulator or device)
+- EverMemOS backend (required to start gameplay)
+  - Cloud: base URL + token
+  - Local: base URL (no token)
+- AI dialogue provider (optional)
+  - DeepSeek API key (recommended), or
+  - Apple Intelligence on-device (when available on iOS 26+)
 
-### Build & Run (Xcode)
+### Run
 
-1. Open `NeuralConnect.xcodeproj` in Xcode
-2. Select a destination (Simulator or a connected iPhone)
+1. Open `NeuralConnect.xcodeproj`
+2. Select a destination
 3. Build & Run
 
-### Build from CLI (device)
+### First-run setup (in-app)
 
-```bash
-xcodebuild -project NeuralConnect.xcodeproj \
-  -scheme NeuralConnect \
-  -configuration Debug \
-  -sdk iphoneos26.2 \
-  build
-```
+The game won’t start until EverMemOS is configured:
 
-### Deploy scripts
+1. Open **Settings** (gear icon)
+2. Configure **EverMemOS**
+   - **Cloud**: enter Base URL + Token
+   - **Local**: enter Base URL (tip: on iPhone, don’t use `localhost` — use a reachable LAN IP)
+3. (Optional) Configure **AI Dialogue Engine**
+   - Enable DeepSeek and enter an API key, or rely on Apple Intelligence if available on your device
 
-This repo includes convenience scripts for fast device iteration:
+## Privacy / data
 
-```bash
-./scripts/deploy_16pro.sh
-./scripts/watch_deploy_16pro.sh
-```
+NeuralConnect can be run in a “local-only / offline” style depending on what you enable in Settings.
 
-Scripts accept env overrides: `DEVICE_ID`, `SDK`, `CONFIGURATION`, `BUNDLE_ID`.
+If you opt in to external services, the app may send:
+- NPC memory summaries/metadata to the configured memory backend
+- Dialogue generation requests to the configured AI provider
 
-### Configuration (in-app)
-
-Open **Settings** (gear icon) to configure:
-
-- **EverMemOS**
-  - Mode: Local / Cloud
-  - Base URL
-  - Token (Cloud only)
-- **AI Dialogue Engine**
-  - Enable/disable DeepSeek + API key
-  - If DeepSeek is off/unconfigured, the app will try to use on-device Apple Intelligence when available
-- **Language**
-  - English / 中文
-- **Data Management**
-  - Delete all NPC memories (clears EverMemOS data and resets relationships)
-
-## Packages
-
-- `Packages/EverMemOSKit`: Swift SDK for EverMemOS (HTTP transport, SSE streaming, retries)
-- `Packages/MemosKit`: thin app-level wrapper around EverMemOSKit
-
-Run package tests:
-
-```bash
-cd Packages/EverMemOSKit && swift test
-```
-
-## Privacy & Data
-
-NeuralConnect may send data to external services depending on how you configure it:
-
-- **EverMemOS**: stores and retrieves NPC memory summaries/observations
-- **DeepSeek** (optional): sends prompts for dialogue generation and summarization
-- **Apple FoundationModels** (optional): runs on-device when supported
-
-No external service is used until you configure credentials/URLs in Settings.
+Nothing is sent until you enter credentials/URLs in Settings.
 
 ## Disclaimer
 
-NeuralConnect is a research/creative prototype. It is not intended as a safety-critical system.
+NeuralConnect is a creative/research prototype and is not intended for safety-critical use.
 
 ## License
 
 No license file is provided in this repository. By default, all rights are reserved by the copyright holder.
-
