@@ -1,0 +1,15 @@
+{
+  "originHash" : "b4b06baef5a9040f887302870965b8944f964b52e2b07a0b1fe37ad1e6b961ed",
+  "pins" : [
+    {
+      "identity" : "evermemoskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AlexL1024/EverMemOSKit.git",
+      "state" : {
+        "revision" : "2f2bcd4ee8f6a5222636b82da3ce9302cb09087a",
+        "version" : "0.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}

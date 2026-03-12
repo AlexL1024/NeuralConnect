@@ -1,0 +1,21 @@
+# Xcode / SwiftPM
+DerivedData/
+.derivedData*/
+*.xcuserstate
+xcuserdata/
+*.xcuserdatad
+*.xccheckout
+*.xcscmblueprint
+.swiftpm/
+.spm/
+
+# Build artifacts
+build/
+.build/
+
+# Local / tooling
+.claude/
+.home/
+
+# macOS
+.DS_Store
