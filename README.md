@@ -24,14 +24,16 @@ The ship is divided into six zones: `Gym`, `Medbay`, `Lab`, `Power Room`, `Bar`,
 - **Clue board / knowledge graph** that helps you spot relationships and recurring topics
 - **English / 中文** support
 
+## Game design (recommended entry)
+
+- **Game design doc (CN)**: [docs/game-design.md](docs/game-design.md)
+- **Memory seed library (CN)**: [docs/memory-seeds.md](docs/memory-seeds.md)
+
 ## Emergent NPC dialogue samples
 
 Full simulation logs — 30 AI-generated conversations where NPCs build memories, form relationships, and reveal secrets over time:
 
-| Run | English | 中文 |
-|-----|---------|------|
-| v3 (30 conversations, clean start) | [simulation_log_v3.md](docs/simulation_log_v3.md) | [simulation_log_v3.zh.md](docs/simulation_log_v3.zh.md) |
-| v2 (11 conversations, foresight fix) | [simulation_log_v2.md](docs/simulation_log_v2.md) | [simulation_log_v2.zh.md](docs/simulation_log_v2.zh.md) |
+- [English](docs/simulation_log_v3.md) | [中文](docs/simulation_log_v3.zh.md)
 
 ## Modes & settings (in-app)
 
