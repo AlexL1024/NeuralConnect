@@ -1,3 +1,5 @@
+![Poster](assets/Poster.jpg)
+
 # NeuralConnect
 
 NeuralConnect is an iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
