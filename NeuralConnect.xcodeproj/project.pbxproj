@@ -602,7 +602,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-E624DDD77A8B4535B0CFECC1 /* EverMemOSKit */ = {
+		E624DDD77A8B4535B0CFECC1 /* EverMemOSKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D24C04B404E416FAA82BCBA /* XCRemoteSwiftPackageReference "EverMemOSKit" */;
 			productName = EverMemOSKit;

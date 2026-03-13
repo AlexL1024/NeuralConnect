@@ -22,6 +22,7 @@ struct GameContainerView: View {
     @State private var hackTargetName: String?
     @State private var didSetup = false
     @State private var showConfigAlert = false
+    @State private var showClueGraph = false
     @State private var playerInvestigation: [String: [TimestampedMemory]] = [:]
     #if DEBUG
     @State private var debugAutoPlay: DebugAutoPlay?
@@ -77,6 +78,15 @@ struct GameContainerView: View {
                                 .padding(12)
                         }
                         .padding(.leading, 16)
+
+                        Button {
+                            showClueGraph = true
+                        } label: {
+                            Image(systemName: "circle.hexagonpath.fill")
+                                .font(.title2)
+                                .foregroundStyle(.cyan)
+                                .padding(12)
+                        }
 
                         #if DEBUG
                         Button {
@@ -213,6 +223,9 @@ struct GameContainerView: View {
                 group: group,
                 viewModel: dialogViewModel
             )
+        }
+        .fullScreenCover(isPresented: $showClueGraph) {
+            ClueGraph3DView()
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(onSave: {

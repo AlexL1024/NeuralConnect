@@ -32,7 +32,7 @@ public actor MemosService {
 
     public init(
         baseURL: URL,
-        token: String,
+        token: String,2
         apiVersion: String = "v0",
         timeoutInterval: TimeInterval = 30,
         maxRetries: Int = 3,
