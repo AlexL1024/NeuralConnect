@@ -1,8 +1,22 @@
+<p align="center">
+  <img width="120" src="assets/logo.png" alt="NeuralConnect logo" style="border-radius: 20px;">
+</p>
+
+<h1 align="center">NeuralConnect</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-iOS%2026-2f7af8" alt="platform">
+  <img src="https://img.shields.io/badge/Swift-6-orange" alt="Swift">
+  <img src="https://img.shields.io/badge/SpriteKit-2D-cyan" alt="SpriteKit">
+</p>
+
+<p align="center">
+  An iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
+</p>
+
+---
+
 ![Poster](assets/Poster.jpg)
-
-# NeuralConnect
-
-NeuralConnect is an iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
 
 You explore the ship, listen in on NPC conversations, and use **Neural Connect** to dive into what characters remember — then connect the clues to uncover the truth.
 
