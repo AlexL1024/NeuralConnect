@@ -49,74 +49,83 @@ struct SettingsView: View {
                     }
                 }
 
-                Section {
-                    Toggle(L("Use DeepSeek", "使用 DeepSeek"), isOn: $deepSeekEnabled)
-                    if deepSeekEnabled {
-                        LabeledContent("API Key") {
-                            SecureField(L("Enter API Key", "输入 API Key"), text: $deepSeekAPIKey)
-                                .textInputAutocapitalization(.never)
-                                .autocorrectionDisabled()
-                                .multilineTextAlignment(.trailing)
+                if SetupMode.isAuto {
+                    Section {
+                        Label(L("API keys auto-configured", "API 密钥已自动配置"), systemImage: "checkmark.shield.fill")
+                            .foregroundStyle(.green)
+                    } header: {
+                        Text(L("Connection Status", "连接状态"))
+                    }
+                } else {
+                    Section {
+                        Toggle(L("Use DeepSeek", "使用 DeepSeek"), isOn: $deepSeekEnabled)
+                        if deepSeekEnabled {
+                            LabeledContent("API Key") {
+                                SecureField(L("Enter API Key", "输入 API Key"), text: $deepSeekAPIKey)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .multilineTextAlignment(.trailing)
+                            }
+                        }
+                    } header: {
+                        Text(L("AI Dialogue Engine", "AI 对话引擎"))
+                    } footer: {
+                        Text(appleIntelligenceAvailable
+                             ? L("Enable DeepSeek for the best dialogue experience. When disabled, Apple Intelligence (on-device) will be used instead.",
+                                 "开启 DeepSeek 可获得最佳对话体验。关闭后将使用 Apple Intelligence（设备端）生成对话。")
+                             : L("Enable DeepSeek for the best dialogue experience. Your device does not support Apple Intelligence, so DeepSeek is required for AI dialogue.",
+                                 "开启 DeepSeek 可获得最佳对话体验。您的设备不支持 Apple Intelligence，需要开启 DeepSeek 才能使用 AI 对话。"))
+                    }
+
+                    Section("EverMemOS") {
+                        Picker(L("Mode", "模式"), selection: $deploymentMode) {
+                            Text("Cloud").tag(DeploymentProfile.cloud)
+                            Text("Local").tag(DeploymentProfile.local)
+                        }
+                        .pickerStyle(.segmented)
+
+                        if deploymentMode == .cloud {
+                            LabeledContent("Base URL") {
+                                TextField("https://api.evermind.ai", text: $cloudBaseURL)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .multilineTextAlignment(.trailing)
+                            }
+                            LabeledContent("Token") {
+                                SecureField(L("Enter token", "输入 token"), text: $cloudToken)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .multilineTextAlignment(.trailing)
+                            }
+                        } else {
+                            LabeledContent("Base URL") {
+                                TextField("http://localhost:1995", text: $localBaseURL)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                                    .multilineTextAlignment(.trailing)
+                            }
                         }
                     }
-                } header: {
-                    Text(L("AI Dialogue Engine", "AI 对话引擎"))
-                } footer: {
-                    Text(appleIntelligenceAvailable
-                         ? L("Enable DeepSeek for the best dialogue experience. When disabled, Apple Intelligence (on-device) will be used instead.",
-                             "开启 DeepSeek 可获得最佳对话体验。关闭后将使用 Apple Intelligence（设备端）生成对话。")
-                         : L("Enable DeepSeek for the best dialogue experience. Your device does not support Apple Intelligence, so DeepSeek is required for AI dialogue.",
-                             "开启 DeepSeek 可获得最佳对话体验。您的设备不支持 Apple Intelligence，需要开启 DeepSeek 才能使用 AI 对话。"))
-                }
 
-                Section("EverMemOS") {
-                    Picker(L("Mode", "模式"), selection: $deploymentMode) {
-                        Text("Cloud").tag(DeploymentProfile.cloud)
-                        Text("Local").tag(DeploymentProfile.local)
-                    }
-                    .pickerStyle(.segmented)
-
-                    if deploymentMode == .cloud {
-                        LabeledContent("Base URL") {
-                            TextField("https://api.evermind.ai", text: $cloudBaseURL)
-                                .textInputAutocapitalization(.never)
-                                .autocorrectionDisabled()
-                                .multilineTextAlignment(.trailing)
-                        }
-                        LabeledContent("Token") {
-                            SecureField(L("Enter token", "输入 token"), text: $cloudToken)
-                                .textInputAutocapitalization(.never)
-                                .autocorrectionDisabled()
-                                .multilineTextAlignment(.trailing)
-                        }
-                    } else {
-                        LabeledContent("Base URL") {
-                            TextField("http://localhost:1995", text: $localBaseURL)
-                                .textInputAutocapitalization(.never)
-                                .autocorrectionDisabled()
-                                .multilineTextAlignment(.trailing)
-                        }
-                    }
-                }
-
-                Section {
-                    Button {
-                        DeepSeekConfig.save(apiKey: deepSeekAPIKey, enabled: deepSeekEnabled)
-                        EverMemOSConfig.save(
-                            mode: deploymentMode,
-                            baseURL: deploymentMode == .cloud ? cloudBaseURL : localBaseURL,
-                            token: cloudToken
-                        )
-                        saved = true
-                        onSave?()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                            dismiss()
-                        }
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text(saved ? L("Saved", "已保存") : L("Save & Reconnect", "保存并重连"))
-                            Spacer()
+                    Section {
+                        Button {
+                            DeepSeekConfig.save(apiKey: deepSeekAPIKey, enabled: deepSeekEnabled)
+                            EverMemOSConfig.save(
+                                mode: deploymentMode,
+                                baseURL: deploymentMode == .cloud ? cloudBaseURL : localBaseURL,
+                                token: cloudToken
+                            )
+                            saved = true
+                            onSave?()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                dismiss()
+                            }
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text(saved ? L("Saved", "已保存") : L("Save & Reconnect", "保存并重连"))
+                                Spacer()
+                            }
                         }
                     }
                 }

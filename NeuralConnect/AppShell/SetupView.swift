@@ -127,8 +127,8 @@ struct SetupView: View {
         .animation(.easeInOut(duration: 0.3), value: isImporting)
         .sheet(isPresented: $showManualEntry) {
             SettingsView(onSave: {
-                // Check if both are configured after manual save
                 if EverMemOSConfig.isConfigured {
+                    SetupMode.current = .manual
                     completedSteps = Set(SetupStep.allCases)
                 }
             })
@@ -204,6 +204,7 @@ struct SetupView: View {
             completedSteps.insert(.done)
             currentStep = nil
 
+            SetupMode.current = .auto
             NHLogger.system.info("[Setup] Auto-import completed successfully")
         } catch {
             NHLogger.system.error("[Setup] Auto-import failed: \(error)")
