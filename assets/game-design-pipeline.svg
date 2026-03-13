@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-label="NeuralConnect emergent dialogue loop: trigger, memory recall, prompt composition, model generation, in-game presentation, summarization, memory writeback, and a player-facing investigation layer.">
+  <defs>
+    <style>
+      .title { font: 720 26px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 520 14px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #475569; }
+      .laneTitle { font: 720 13px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; letter-spacing: 0.08em; fill: #334155; }
+      .label { font: 700 15px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .text  { font: 520 13px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .micro { font: 520 12px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #64748b; }
+      .chip { font: 680 11px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; fill: #0f172a; }
+
+      .panel { fill: #ffffff; stroke: #e2e8f0; stroke-width: 2; rx: 18; ry: 18; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; ry: 14; }
+      .boxMem { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; rx: 14; ry: 14; }
+      .boxModel { fill: #f5f3ff; stroke: #a78bfa; stroke-width: 2; rx: 14; ry: 14; }
+      .boxUI { fill: #f8fafc; stroke: #94a3b8; stroke-width: 2; rx: 14; ry: 14; }
+      .boxPlayer { fill: #ecfeff; stroke: #22d3ee; stroke-width: 2; rx: 14; ry: 14; }
+
+      .line { stroke: #334155; stroke-width: 2.6; fill: none; }
+      .loop { stroke: #0f172a; stroke-width: 3.2; fill: none; }
+      .dashed { stroke-dasharray: 7 7; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowBold" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="640" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="48" y="56" class="title">NeuralConnect — Emergent Dialogue Loop</text>
+  <text x="48" y="82" class="subtitle">Make overheard NPC conversations feel alive: remember → generate → summarize → write back → let memory steer what happens next.</text>
+
+  <!-- Lanes -->
+  <rect x="40" y="110" width="1520" height="250" class="panel"/>
+  <text x="62" y="140" class="laneTitle">AUTO — OVERHEARD DIALOGUE</text>
+
+  <rect x="40" y="390" width="1520" height="210" class="panel"/>
+  <text x="62" y="420" class="laneTitle">PLAYER — “NEURAL CONNECT” INVESTIGATION</text>
+
+  <!-- Auto lane: boxes -->
+  <rect x="70" y="170" width="220" height="120" class="boxUI"/>
+  <text x="92" y="206" class="label">Trigger</text>
+  <text x="92" y="230" class="text">Proximity / scheduling</text>
+  <text x="92" y="254" class="micro">Who talks, where, when</text>
+  <text x="92" y="280" class="micro">e.g. PairScorer</text>
+
+  <rect x="310" y="170" width="220" height="120" class="boxMem"/>
+  <text x="352" y="206" class="label">Recall</text>
+  <text x="352" y="230" class="text">Memories + foresight</text>
+  <text x="352" y="254" class="micro">Facts, vibes, recent phrases</text>
+  <text x="352" y="280" class="micro">EverMemOS</text>
+
+  <rect x="550" y="170" width="220" height="120" class="boxUI"/>
+  <text x="627" y="206" class="label">Compose</text>
+  <text x="627" y="230" class="text">Scene prompt</text>
+  <text x="627" y="254" class="micro">Bio + relationships + rules</text>
+  <text x="627" y="280" class="micro">PromptBuilder</text>
+
+  <rect x="790" y="170" width="220" height="120" class="boxModel"/>
+  <text x="902" y="206" class="label">Generate</text>
+  <text x="902" y="230" class="text">2-speaker dialogue</text>
+  <text x="902" y="254" class="micro">Cloud / on-device / fallback</text>
+  <text x="902" y="280" class="micro">DialogueService</text>
+
+  <rect x="1030" y="170" width="220" height="120" class="boxUI"/>
+  <text x="1177" y="206" class="label">Present</text>
+  <text x="1177" y="230" class="text">In-game overlay</text>
+  <text x="1177" y="254" class="micro">Tap-to-advance</text>
+  <text x="1177" y="280" class="micro">Speaker colors</text>
+
+  <rect x="1270" y="170" width="240" height="120" class="boxMem"/>
+  <text x="1452" y="206" class="label">Summarize &amp; write back</text>
+  <text x="1452" y="230" class="text">1-line seeds per NPC</text>
+  <text x="1452" y="254" class="micro">Topic tags &amp; de-dup</text>
+  <text x="1452" y="280" class="micro">MemoryStore</text>
+
+  <!-- Auto lane: arrows -->
+  <path d="M 290 230 L 310 230" class="line" marker-end="url(#arrow)"/>
+  <path d="M 530 230 L 550 230" class="line" marker-end="url(#arrow)"/>
+  <path d="M 770 230 L 790 230" class="line" marker-end="url(#arrow)"/>
+  <path d="M 1010 230 L 1030 230" class="line" marker-end="url(#arrow)"/>
+  <path d="M 1250 230 L 1270 230" class="line" marker-end="url(#arrow)"/>
+
+  <!-- Loop: writeback -> recall -->
+  <path d="M 1460 170 C 1498 122, 1410 108, 1270 122 C 1020 148, 720 140, 520 150 C 410 156, 350 160, 330 170" class="loop" marker-end="url(#arrowBold)"/>
+  <text x="980" y="140" class="micro">Memory shapes future intent &amp; topics</text>
+
+  <!-- Player lane -->
+  <rect x="70" y="455" width="300" height="115" class="boxPlayer"/>
+  <text x="92" y="490" class="label">Review memory trail</text>
+  <text x="92" y="514" class="text">What did they imply?</text>
+  <text x="92" y="538" class="micro">Search, filter, timeline</text>
+
+  <rect x="390" y="455" width="310" height="115" class="boxPlayer"/>
+  <text x="452" y="490" class="label">Connect clues</text>
+  <text x="452" y="514" class="text">Build a suspicion graph</text>
+  <text x="452" y="538" class="micro">People → events → motives</text>
+
+  <rect x="720" y="455" width="320" height="115" class="boxPlayer"/>
+  <text x="842" y="490" class="label">Guide the next encounter</text>
+  <text x="842" y="514" class="text">Pin leads / set focus (planned)</text>
+  <text x="842" y="538" class="micro">Turns investigation into dialogue fuel</text>
+
+  <rect x="1060" y="455" width="450" height="115" class="boxUI"/>
+  <text x="1252" y="490" class="label">Payoff</text>
+  <text x="1252" y="514" class="text">New scenes &amp; contradictions</text>
+  <text x="1252" y="538" class="micro">Emergence with continuity</text>
+
+  <path d="M 370 512 L 390 512" class="line" marker-end="url(#arrow)"/>
+  <path d="M 700 512 L 720 512" class="line" marker-end="url(#arrow)"/>
+  <path d="M 1040 512 L 1060 512" class="line" marker-end="url(#arrow)"/>
+
+  <!-- Planned hook back into auto lane -->
+  <path d="M 880 455 L 880 380 L 660 380 L 660 290" class="line dashed" marker-end="url(#arrow)"/>
+  <text x="520" y="372" class="micro">Optional hook: player focus influences recall/prompt</text>
+
+  <!-- Legend -->
+  <rect x="1240" y="120" width="320" height="40" class="box"/>
+  <text x="1260" y="145" class="chip">Legend:</text>
+  <rect x="1320" y="130" width="16" height="16" class="boxMem"/>
+  <text x="1342" y="145" class="micro">Memory</text>
+  <rect x="1405" y="130" width="16" height="16" class="boxModel"/>
+  <text x="1427" y="145" class="micro">Model</text>
+  <rect x="1488" y="130" width="16" height="16" class="boxUI"/>
+  <text x="1510" y="145" class="micro">Game UI</text>
+</svg>

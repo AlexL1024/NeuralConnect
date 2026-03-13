@@ -199,7 +199,9 @@ struct GameContainerView: View {
                         gameState: gameState,
                         roster: NPCRoster.all,
                         brainManager: bm,
-                        maxTicks: 120
+                        maxTicks: 300,
+                        maxConversations: 30,
+                        cleanStart: true
                     )
                     debugAutoPlay = ap
                     ap.start(interval: 3.0)

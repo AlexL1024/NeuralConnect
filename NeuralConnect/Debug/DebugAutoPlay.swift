@@ -1,5 +1,7 @@
 #if DEBUG
 import Foundation
+import MemosKit
+import EverMemOSKit
 
 /// Headless debug mode: auto-ticks zones, triggers REAL AI-generated conversations,
 /// stores memories, and logs everything for emergent narrative testing.
@@ -12,30 +14,90 @@ final class DebugAutoPlay {
     private var timer: Timer?
     private var tickCount = 0
     private let logFile: URL
+    private let mdFile: URL
     private var logLines: [String] = []
+    private var mdLines: [String] = []
     private var conversationCount = 0
     private var isGenerating = false  // Prevent overlapping AI calls
     private let maxTicks: Int
+    private let maxConversations: Int
+    private let cleanStart: Bool
 
     // Fallback scheduler only used when brainManager is nil
     private let fallbackScheduler = ZoneScheduler()
 
-    init(gameState: GameState, roster: [NPCCharacter], brainManager: NPCBrainManager? = nil, maxTicks: Int = 80) {
+    init(gameState: GameState, roster: [NPCCharacter], brainManager: NPCBrainManager? = nil, maxTicks: Int = 80, maxConversations: Int = 0, cleanStart: Bool = false) {
         self.gameState = gameState
         self.roster = roster
         self.brainManager = brainManager
         self.maxTicks = maxTicks
+        self.maxConversations = maxConversations
+        self.cleanStart = cleanStart
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         self.logFile = docs.appendingPathComponent("debug_autoplay.log")
+        self.mdFile = docs.appendingPathComponent("simulation_log.md")
     }
 
     func start(interval: TimeInterval = 2.0) {
         logLines = []
+        mdLines = []
         emit("========== DEBUG AUTOPLAY START ==========")
         emit("NPCs: \(roster.map(\.id))")
         emit("Using NPCBrainManager: \(brainManager != nil)")
         emit("DeepSeek configured: \(DeepSeekConfig.isConfigured)")
-        emit("Max ticks: \(maxTicks), interval: \(interval)s")
+        emit("Max ticks: \(maxTicks), maxConversations: \(maxConversations), interval: \(interval)s")
+
+        // Build markdown header
+        let dateStr = ISO8601DateFormatter().string(from: Date())
+        mdLines.append("# NeuralConnect 对话模拟日志")
+        mdLines.append("")
+        mdLines.append("> **日期：**\(dateStr) | **AI：**\(DeepSeekConfig.isConfigured ? "DeepSeek" : "Fallback") | **Clean Start：**\(cleanStart)")
+        mdLines.append("")
+        mdLines.append("---")
+        mdLines.append("")
+        mdLines.append("## 角色")
+        mdLines.append("")
+        mdLines.append("| ID | 名字 | 身份 | 秘密 |")
+        mdLines.append("|---|---|---|---|")
+        for npc in roster {
+            mdLines.append("| \(npc.id) | \(npc.localizedName) | \(npc.localizedRole) | \(npc.localizedSecret) |")
+        }
+        mdLines.append("")
+        mdLines.append("---")
+        mdLines.append("")
+
+        if cleanStart {
+            Task {
+                await self.deleteAllMemories()
+                self.beginTicking(interval: interval)
+            }
+        } else {
+            beginTicking(interval: interval)
+        }
+    }
+
+    private func deleteAllMemories() async {
+        emit("🧹 Cleaning start: deleting all NPC memories...")
+        guard let service = EverMemOSConfig.buildService() else {
+            emit("⚠️ Cannot build service for memory deletion")
+            return
+        }
+        do {
+            var totalDeleted = 0
+            for npc in roster {
+                let request = DeleteMemoriesRequest(userId: npc.id)
+                let result = try await service.deleteMemories(request)
+                totalDeleted += result.count
+                emit("  Deleted \(result.count) memories for \(npc.id)")
+            }
+            GameState.clearRelationships()
+            emit("✅ Clean start complete: deleted \(totalDeleted) memories total")
+        } catch {
+            emit("❌ Memory deletion failed: \(error)")
+        }
+    }
+
+    private func beginTicking(interval: TimeInterval) {
 
         // Initialize zone state
         gameState.initialize(roster: roster)
@@ -52,6 +114,11 @@ final class DebugAutoPlay {
         emit("Timer started, interval=\(interval)s")
     }
 
+    /// Check if we should stop based on conversation count
+    private var shouldStopByConversations: Bool {
+        maxConversations > 0 && conversationCount >= maxConversations
+    }
+
     func stop() {
         timer?.invalidate()
         timer = nil
@@ -61,6 +128,7 @@ final class DebugAutoPlay {
         logRelationships("FINAL")
         emit("========== STOPPED ==========")
         flush()
+        flushMarkdown()
     }
 
     private func autoTick() {
@@ -110,7 +178,7 @@ final class DebugAutoPlay {
 
         flush()
 
-        if tickCount >= maxTicks {
+        if tickCount >= maxTicks || shouldStopByConversations {
             stop()
         }
     }
@@ -267,6 +335,56 @@ final class DebugAutoPlay {
         }
         emit("  ╚══ END CONVERSATION #\(conversationCount) ══╝")
 
+        // Build markdown for this conversation
+        let ln = leftChar.localizedName
+        let rn = rightChar.localizedName
+        mdLines.append("## 对话 #\(conversationCount): \(ln) ↔ \(rn)")
+        mdLines.append("")
+        mdLines.append("📍 **\(zoneId)** | 模式: `\(intent?.mode.rawValue ?? "unknown")`")
+        mdLines.append("| 关系: `trust=\(relCtx.trustLR)/\(relCtx.trustRL) susp=\(relCtx.suspicionLR)/\(relCtx.suspicionRL) debt=\(relCtx.debtLR)/\(relCtx.debtRL) pres=\(relCtx.pressureL)/\(relCtx.pressureR)`")
+        mdLines.append("")
+
+        // Foresight section
+        if !memories.leftForesights.isEmpty || !memories.rightForesights.isEmpty {
+            mdLines.append("<details><summary>💭 Foresight 意图</summary>")
+            mdLines.append("")
+            if !memories.leftForesights.isEmpty {
+                mdLines.append("**\(ln)：**")
+                for f in memories.leftForesights { mdLines.append("- \(f)") }
+                mdLines.append("")
+            }
+            if !memories.rightForesights.isEmpty {
+                mdLines.append("**\(rn)：**")
+                for f in memories.rightForesights { mdLines.append("- \(f)") }
+                mdLines.append("")
+            }
+            mdLines.append("</details>")
+            mdLines.append("")
+        }
+
+        // Memory section
+        if !memories.left.isEmpty || !memories.right.isEmpty {
+            mdLines.append("<details><summary>🧠 回忆</summary>")
+            mdLines.append("")
+            if !memories.left.isEmpty {
+                mdLines.append("**\(ln)→\(rn)：**\(memories.left.joined(separator: "｜"))")
+                mdLines.append("")
+            }
+            if !memories.right.isEmpty {
+                mdLines.append("**\(rn)→\(ln)：**\(memories.right.joined(separator: "｜"))")
+                mdLines.append("")
+            }
+            mdLines.append("</details>")
+            mdLines.append("")
+        }
+
+        // Dialogue lines
+        for line in conversation.lines {
+            let tag = line.speaker == .left ? ln : rn
+            mdLines.append("> \(tag)：\(line.text)")
+        }
+        mdLines.append("")
+
         // 4b. Record spoken lines for anti-repetition
         let spokenLeft = conversation.lines.filter { $0.speaker == .left }.map(\.text)
         let spokenRight = conversation.lines.filter { $0.speaker == .right }.map(\.text)
@@ -275,8 +393,6 @@ final class DebugAutoPlay {
 
         // 5. Generate and store summaries (same as real game)
         if conversation.lines.count > 1 {
-            let ln = leftChar.localizedName
-            let rn = rightChar.localizedName
             let dialogueTexts = conversation.lines.map { line in
                 switch line.speaker {
                 case .left: return "\(ln): \(line.text)"
@@ -297,6 +413,13 @@ final class DebugAutoPlay {
 
             emit("  SUMMARY[\(ln)]: \(leftSummary)")
             emit("  SUMMARY[\(rn)]: \(rightSummary)")
+
+            mdLines.append("**📝 摘要：**")
+            mdLines.append("- **\(ln)：**\(leftSummary)")
+            mdLines.append("- **\(rn)：**\(rightSummary)")
+            mdLines.append("")
+            mdLines.append("---")
+            mdLines.append("")
 
             await bm.storeSummaries(
                 leftId: leftId, rightId: rightId,
@@ -395,6 +518,13 @@ final class DebugAutoPlay {
     private func flush() {
         let content = logLines.joined(separator: "\n") + "\n"
         try? content.write(to: logFile, atomically: true, encoding: .utf8)
+    }
+
+    private func flushMarkdown() {
+        let content = mdLines.joined(separator: "\n") + "\n"
+        try? content.write(to: mdFile, atomically: true, encoding: .utf8)
+        emit("📄 Markdown saved to: \(mdFile.path)")
+        print("[DebugAuto] 📄 Markdown log: \(mdFile.path)")
     }
 }
 #endif
