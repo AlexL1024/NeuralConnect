@@ -1,7 +1,6 @@
 import Foundation
 import os.log
 import EverMemOSKit
-import MemosKit
 
 struct TimestampedMemory: Sendable, Identifiable, Hashable {
     let text: String

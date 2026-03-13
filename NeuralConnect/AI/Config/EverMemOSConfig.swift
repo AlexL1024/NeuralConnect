@@ -1,6 +1,5 @@
 import Foundation
 import EverMemOSKit
-import MemosKit
 
 enum EverMemOSConfig {
     private static let modeKey = "evermemos_deployment_mode"
@@ -92,17 +91,28 @@ enum EverMemOSConfig {
         }
     }
 
-    // MARK: - Build Service
+    // MARK: - Per-Device Tenant
 
-    private static let tenantId = "neuralconnect"
+    private static let deviceIdKey = "evermemos_device_id"
+
+    static var deviceTenantId: String {
+        if let existing = KeychainHelper.load(forKey: deviceIdKey) {
+            return "neuralconnect_\(existing)"
+        }
+        let newId = UUID().uuidString.prefix(8).lowercased()
+        KeychainHelper.save(String(newId), forKey: deviceIdKey)
+        return "neuralconnect_\(newId)"
+    }
+
+    // MARK: - Build Service
 
     static func buildService() -> MemosService? {
         guard isConfigured else { return nil }
         switch deploymentMode {
         case .cloud:
-            return MemosService(profile: .cloud, baseURL: cloudBaseURL, token: cloudToken, tenantId: tenantId)
+            return MemosService(profile: .cloud, baseURL: cloudBaseURL, token: cloudToken, tenantId: deviceTenantId)
         case .local:
-            return MemosService(profile: .local, baseURL: localBaseURL, tenantId: tenantId)
+            return MemosService(profile: .local, baseURL: localBaseURL, tenantId: deviceTenantId)
         }
     }
 }

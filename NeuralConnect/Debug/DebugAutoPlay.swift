@@ -1,6 +1,5 @@
 #if DEBUG
 import Foundation
-import MemosKit
 import EverMemOSKit
 
 /// Headless debug mode: auto-ticks zones, triggers REAL AI-generated conversations,

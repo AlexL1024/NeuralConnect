@@ -1,6 +1,5 @@
 import SwiftUI
 import os.log
-import MemosKit
 import EverMemOSKit
 
 struct SettingsView: View {
