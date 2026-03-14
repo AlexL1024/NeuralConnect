@@ -5,7 +5,7 @@
 <h1 align="center">NeuralConnect</h1>
 
 <p align="center">
-  A Memory-Driven Multi-Agent NPC Experience Powered by EverMemOS.
+  A Memory-Driven Multi-Agent NPC Experience Powered by <a href="https://github.com/EverMind-AI/EverMemOS">EverMemOS</a>.
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  An iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
+  An iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle, where you explore the ship, listen in on NPC conversations, and use Neural Connect to dive into what characters remember, connect the clues, and uncover the truth.
 </p>
 
 <p align="center">
@@ -25,8 +25,6 @@
 ---
 
 ![Poster](assets/Poster.jpg)
-
-You explore the ship, listen in on NPC conversations, and use **Neural Connect** to dive into what characters remember — then connect the clues to uncover the truth.
 
 ## Demo Video
 https://youtu.be/6jui5UAV2CI
