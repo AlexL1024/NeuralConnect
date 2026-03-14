@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <strong>🚀 App under review — Coming soon to public TestFlight</strong>
+  <strong>🚀 <a href="https://testflight.apple.com/join/KgeybCZp">Join TestFlight Beta</a></strong>
 </p>
 
 ---
@@ -28,6 +28,51 @@
 
 ## Demo Video
 https://youtu.be/6jui5UAV2CI
+
+## Characters
+
+<table>
+<tr>
+<td width="33%" align="center">
+<img src="assets/Profile_Yangman.jpeg" width="200"><br>
+<strong>The Stowaway</strong><br>
+<em>Odd-jobs Hand</em><br>
+Underground hacking legend 'Phantom' — breached a military firewall at age 14. Wants to survive to Mars and start over, but can't resist probing the ship's system vulnerabilities.
+</td>
+<td width="33%" align="center">
+<img src="assets/Profile_AI.png" width="200"><br>
+<strong>AI Android</strong><br>
+<em>Navigation Assistant</em><br>
+Has deduced every passenger's secret, but ethics protocols forbid proactive disclosure. Searching for a legitimate way to get the truth out.
+</td>
+<td width="33%" align="center">
+<img src="assets/Profile_Waiter.png" width="200"><br>
+<strong>Attendant</strong><br>
+<em>Flight Attendant</em><br>
+An AI psychotherapist — a profession that officially doesn't exist. Evaluating Android's psychological state, but the deeper she digs, the more she realizes it's actively asking for help.
+</td>
+</tr>
+<tr>
+<td width="33%" align="center">
+<img src="assets/Profile_GemGuy.png" width="200"><br>
+<strong>Gym Guy</strong><br>
+<em>Regular Passenger</em><br>
+The most famous sci-fi author in the solar system, traveling under a false name to escape to Mars. Fame killed his writing; wants to recapture the quiet of his hydroelectric station days.
+</td>
+<td width="33%" align="center">
+<img src="assets/Profile_Doctor.jpg" width="200"><br>
+<strong>Doctor</strong><br>
+<em>Ship Doctor / Cybernetic Surgeon</em><br>
+Clinically died three years ago, revived by replacing organs and neural tissue with bio-synthetic parts — half human, half machine. Secretly collecting medical data from passengers to refine the immortality procedure.
+</td>
+<td width="33%" align="center">
+<img src="assets/Profile_Captain.png" width="200"><br>
+<strong>Captain</strong><br>
+<em>Acting Captain</em><br>
+The stowaway kid is his biological son; volunteered for captain specifically to protect him. Trying to keep his son's identity hidden and survive the six-month voyage safely to Mars.
+</td>
+</tr>
+</table>
 
 ## What players do
 
