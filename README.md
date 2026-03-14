@@ -20,6 +20,9 @@
 
 You explore the ship, listen in on NPC conversations, and use **Neural Connect** to dive into what characters remember — then connect the clues to uncover the truth.
 
+### Demo Video
+https://youtu.be/6jui5UAV2CI
+
 ## What players do
 
 NeuralConnect is built around a simple loop:
