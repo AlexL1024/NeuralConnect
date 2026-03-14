@@ -18,16 +18,15 @@
   An iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle, where you explore the ship, listen in on NPC conversations, and use Neural Connect to dive into what characters remember, connect the clues, and uncover the truth.
 </p>
 
-<p align="center">
-  <strong>🚀 <a href="https://testflight.apple.com/join/KgeybCZp">Join TestFlight Beta</a></strong>
-</p>
-
 ---
 
 ![Poster](assets/Poster.jpg)
 
 ## Demo Video
 https://youtu.be/6jui5UAV2CI
+
+## TestFlight Beta
+https://testflight.apple.com/join/KgeybCZp
 
 ## What players do
 
