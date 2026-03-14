@@ -149,6 +149,12 @@ Nothing is sent until you enter credentials/URLs in Settings.
 
 Full privacy policy: [docs/privacy-policy.md](docs/privacy-policy.md)
 
+## Future Plan
+
+The current clue board is a concept mockup for exploration and demonstration. The goal is to evolve it into a fully functional knowledge graph powered by EverMemOS's Cell architecture — where each clue becomes a living memory cell that can form dynamic connections, surface hidden patterns, and reveal the narrative as players investigate.
+
+![Clue Board Mockup](assets/clue-board-mockup.png)
+
 ## Disclaimer
 
 NeuralConnect is a creative/research prototype and is not intended for safety-critical use.
