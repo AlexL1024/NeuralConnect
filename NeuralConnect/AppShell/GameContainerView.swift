@@ -88,29 +88,6 @@ struct GameContainerView: View {
                                 .padding(12)
                         }
 
-                        #if DEBUG
-                        Button {
-                            if debugAutoPlay != nil {
-                                debugAutoPlay?.stop()
-                                debugAutoPlay = nil
-                            } else if let bm = npcBrainManager {
-                                let ap = DebugAutoPlay(
-                                    gameState: gameState,
-                                    roster: NPCRoster.all,
-                                    brainManager: bm,
-                                    maxTicks: 120
-                                )
-                                debugAutoPlay = ap
-                                ap.start(interval: 3.0)
-                            }
-                        } label: {
-                            Image(systemName: debugAutoPlay != nil ? "stop.circle.fill" : "play.circle.fill")
-                                .font(.title2)
-                                .foregroundStyle(debugAutoPlay != nil ? .red : .green)
-                                .padding(12)
-                        }
-                        #endif
-
                         Spacer()
 
                         // Mini map (top-right) — hidden during dialog
@@ -230,7 +207,20 @@ struct GameContainerView: View {
         .sheet(isPresented: $showSettings) {
             SettingsView(onSave: {
                 setupSystem()
-            }, onReplayIntro: onReplayIntro)
+            }, onReplayIntro: onReplayIntro, onStartAutoPlay: {
+                #if DEBUG
+                if let bm = npcBrainManager {
+                    let ap = DebugAutoPlay(
+                        gameState: gameState,
+                        roster: NPCRoster.all,
+                        brainManager: bm,
+                        maxTicks: 120
+                    )
+                    debugAutoPlay = ap
+                    ap.start(interval: 3.0)
+                }
+                #endif
+            })
         }
         .alert(L("EverMemOS Setup Required", "需要配置 EverMemOS"), isPresented: $showConfigAlert) {
             Button(L("Open Settings", "打开设置")) {

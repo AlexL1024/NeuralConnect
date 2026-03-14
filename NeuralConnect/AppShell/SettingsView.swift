@@ -15,6 +15,11 @@ struct SettingsView: View {
     @State private var deleteStatus: String?
     @State private var isDeleting = false
     @State private var language: GameLanguage
+    @State private var testStatus: String?
+    @State private var isTesting = false
+    @State private var showAutoPlayAlert = false
+
+    var onStartAutoPlay: (() -> Void)?
 
     var onSave: (() -> Void)?
     var onReplayIntro: (() -> Void)?
@@ -23,9 +28,10 @@ struct SettingsView: View {
         AppleFoundationModelsDialogueProvider.status() == .available
     }
 
-    init(onSave: (() -> Void)? = nil, onReplayIntro: (() -> Void)? = nil) {
+    init(onSave: (() -> Void)? = nil, onReplayIntro: (() -> Void)? = nil, onStartAutoPlay: (() -> Void)? = nil) {
         self.onSave = onSave
         self.onReplayIntro = onReplayIntro
+        self.onStartAutoPlay = onStartAutoPlay
         _deploymentMode = State(initialValue: EverMemOSConfig.deploymentMode)
         _cloudBaseURL = State(initialValue: EverMemOSConfig.cloudBaseURL.absoluteString)
         _cloudToken = State(initialValue: EverMemOSConfig.cloudToken)
@@ -49,15 +55,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if SetupMode.isAuto {
-                    Section {
-                        Label(L("API keys auto-configured", "API 密钥已自动配置"), systemImage: "checkmark.shield.fill")
-                            .foregroundStyle(.green)
-                    } header: {
-                        Text(L("Connection Status", "连接状态"))
-                    }
-                } else {
-                    Section {
+                Section {
                         Toggle(L("Use DeepSeek", "使用 DeepSeek"), isOn: $deepSeekEnabled)
                         if deepSeekEnabled {
                             LabeledContent("API Key") {
@@ -104,6 +102,24 @@ struct SettingsView: View {
                                     .autocorrectionDisabled()
                                     .multilineTextAlignment(.trailing)
                             }
+                            Button {
+                                testConnection()
+                            } label: {
+                                HStack {
+                                    if isTesting {
+                                        ProgressView()
+                                            .padding(.trailing, 4)
+                                    }
+                                    Text(isTesting ? "Testing..." : "Test Connection")
+                                }
+                            }
+                            .disabled(isTesting || localBaseURL.isEmpty)
+
+                            if let status = testStatus {
+                                Text(status)
+                                    .font(.caption)
+                                    .foregroundStyle(status.contains("✓") ? .green : .red)
+                            }
                         }
                     }
 
@@ -128,7 +144,6 @@ struct SettingsView: View {
                             }
                         }
                     }
-                }
 
                 if let onReplayIntro {
                     Section(L("Story", "剧情")) {
@@ -146,6 +161,20 @@ struct SettingsView: View {
                         }
                     }
                 }
+
+                #if DEBUG
+                Section(L("Debug", "调试")) {
+                    Button {
+                        showAutoPlayAlert = true
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Label(L("Start Auto Play", "启动自动播放"), systemImage: "play.circle.fill")
+                            Spacer()
+                        }
+                    }
+                }
+                #endif
 
                 Section(L("Data Management", "数据管理")) {
                     Button(role: .destructive) {
@@ -181,6 +210,17 @@ struct SettingsView: View {
         } message: {
             Text(L("This will delete all NPC memory data from EverMemOS. This action cannot be undone.", "将删除 EverMemOS 中所有 NPC 的记忆数据，此操作不可撤销。"))
         }
+        .alert(L("Warning", "警告"), isPresented: $showAutoPlayAlert) {
+            Button(L("Start", "启动"), role: .destructive) {
+                dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    onStartAutoPlay?()
+                }
+            }
+            Button(L("Cancel", "取消"), role: .cancel) {}
+        } message: {
+            Text(L("Auto Play will consume a large amount of API tokens. Continue?", "自动播放会消耗大量 API Token，是否继续？"))
+        }
     }
 
     private func deleteAllMemories() {
@@ -209,6 +249,49 @@ struct SettingsView: View {
                 await MainActor.run {
                     isDeleting = false
                     deleteStatus = L("Delete failed: \(error)", "清空失败: \(error)")
+                }
+            }
+        }
+    }
+
+    private func testConnection() {
+        guard let url = URL(string: localBaseURL) else {
+            testStatus = "✗ Invalid URL"
+            return
+        }
+        isTesting = true
+        testStatus = nil
+
+        Task {
+            do {
+                let healthURL = url.appendingPathComponent("/health")
+                var request = URLRequest(url: healthURL, timeoutInterval: 3)
+                request.httpMethod = "GET"
+                let (_, response) = try await URLSession.shared.data(for: request)
+                await MainActor.run {
+                    isTesting = false
+                    if let http = response as? HTTPURLResponse, http.statusCode == 200 {
+                        testStatus = "✓ Connected"
+                    } else {
+                        testStatus = "✗ Server returned error"
+                    }
+                }
+            } catch let error as URLError {
+                await MainActor.run {
+                    isTesting = false
+                    switch error.code {
+                    case .cannotConnectToHost, .cannotFindHost:
+                        testStatus = "✗ Cannot connect to server"
+                    case .timedOut:
+                        testStatus = "✗ Connection timed out"
+                    default:
+                        testStatus = "✗ Connection failed"
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    isTesting = false
+                    testStatus = "✗ Connection failed"
                 }
             }
         }

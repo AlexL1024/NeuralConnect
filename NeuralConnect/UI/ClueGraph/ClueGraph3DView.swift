@@ -335,20 +335,34 @@ struct ClueGraph3DView: View {
             let root = Entity()
             root.name = "clueRoot"
 
-            // Lighting
+            // Lighting - 4 lights for better reflections
             let keyLight = PointLight()
-            keyLight.light.intensity = 12000
-            keyLight.light.attenuationRadius = 20
+            keyLight.light.intensity = 18000
+            keyLight.light.attenuationRadius = 25
             keyLight.light.color = .white
-            keyLight.position = [2, 2, 3]
+            keyLight.position = [3, 3, 4]
             root.addChild(keyLight)
 
             let fillLight = PointLight()
-            fillLight.light.intensity = 6000
-            fillLight.light.attenuationRadius = 20
-            fillLight.light.color = UIColor(red: 0.3, green: 0.3, blue: 1.0, alpha: 1)
-            fillLight.position = [-2, -1, 2]
+            fillLight.light.intensity = 10000
+            fillLight.light.attenuationRadius = 25
+            fillLight.light.color = UIColor(red: 0.4, green: 0.5, blue: 1.0, alpha: 1)
+            fillLight.position = [-3, -2, 3]
             root.addChild(fillLight)
+
+            let rimLight = PointLight()
+            rimLight.light.intensity = 8000
+            rimLight.light.attenuationRadius = 20
+            rimLight.light.color = UIColor(red: 1.0, green: 0.6, blue: 0.3, alpha: 1)
+            rimLight.position = [0, -3, -2]
+            root.addChild(rimLight)
+
+            let topLight = PointLight()
+            topLight.light.intensity = 6000
+            topLight.light.attenuationRadius = 18
+            topLight.light.color = UIColor(red: 0.5, green: 1.0, blue: 0.8, alpha: 1)
+            topLight.position = [0, 4, 0]
+            root.addChild(topLight)
 
             // Edges
             for edge in mockEdges {
@@ -365,13 +379,13 @@ struct ClueGraph3DView: View {
             for clue in mockClues {
                 let isPromoted = promotedClueIds.contains(clue.id)
                 let color = isPromoted ? UIColor.systemYellow : clue.nodeType.uiColor
-                let radius: Float = clue.nodeType == .npc ? 0.018 : 0.012
+                let radius: Float = clue.nodeType == .npc ? 0.054 : 0.036
 
-                // Sphere node
-                var mat = SimpleMaterial()
-                mat.color = .init(tint: color)
-                mat.metallic = .init(floatLiteral: 0.9)
-                mat.roughness = .init(floatLiteral: 0.15)
+                // Sphere node - PBR material for lighting
+                var mat = PhysicallyBasedMaterial()
+                mat.baseColor = .init(tint: color)
+                mat.metallic = 0.95
+                mat.roughness = 0.1
                 let sphere = ModelEntity(mesh: .generateSphere(radius: radius), materials: [mat])
                 sphere.position = clue.position
                 sphere.name = "node_\(clue.id)"
@@ -380,11 +394,13 @@ struct ClueGraph3DView: View {
                 sphere.components.set(CollisionComponent(shapes: [.generateSphere(radius: max(0.05, radius * 2))]))
                 root.addChild(sphere)
 
-                // Glow halo
-                let glow = ModelEntity(
-                    mesh: .generateSphere(radius: radius * 3.5),
-                    materials: [UnlitMaterial(color: color.withAlphaComponent(0.06))]
-                )
+                // Glow halo - translucent PBR
+                var glowMat = PhysicallyBasedMaterial()
+                glowMat.baseColor = .init(tint: color.withAlphaComponent(0.15))
+                glowMat.metallic = 0.3
+                glowMat.roughness = 0.6
+                glowMat.blending = .transparent(opacity: 0.15)
+                let glow = ModelEntity(mesh: .generateSphere(radius: radius * 3.5), materials: [glowMat])
                 glow.position = clue.position
                 glow.name = "glow_\(clue.id)"
                 root.addChild(glow)
@@ -449,17 +465,22 @@ struct ClueGraph3DView: View {
                 let alpha: CGFloat = visible ? 1.0 : 0.08
 
                 if let node = root.findEntity(named: "node_\(clue.id)") as? ModelEntity {
-                    var mat = SimpleMaterial()
-                    mat.color = .init(tint: baseColor.withAlphaComponent(alpha))
-                    mat.metallic = .init(floatLiteral: 0.9)
-                    mat.roughness = .init(floatLiteral: isSelected ? 0.05 : 0.15)
+                    var mat = PhysicallyBasedMaterial()
+                    mat.baseColor = .init(tint: baseColor.withAlphaComponent(alpha))
+                    mat.metallic = 0.95
+                    mat.roughness = isSelected ? 0.05 : 0.1
                     node.model?.materials = [mat]
                 }
 
                 if let glow = root.findEntity(named: "glow_\(clue.id)") as? ModelEntity {
-                    let glowAlpha: CGFloat = isSelected ? 0.25 : (visible ? 0.06 : 0.01)
+                    let glowAlpha: CGFloat = isSelected ? 0.3 : (visible ? 0.15 : 0.03)
                     let glowColor: UIColor = isSelected ? .systemPink : baseColor
-                    glow.model?.materials = [UnlitMaterial(color: glowColor.withAlphaComponent(glowAlpha))]
+                    var glowMat = PhysicallyBasedMaterial()
+                    glowMat.baseColor = .init(tint: glowColor.withAlphaComponent(glowAlpha))
+                    glowMat.metallic = 0.3
+                    glowMat.roughness = 0.6
+                    glowMat.blending = .transparent(opacity: .init(floatLiteral: Float(glowAlpha)))
+                    glow.model?.materials = [glowMat]
                 }
 
                 if let textAnchor = root.findEntity(named: "text_\(clue.id)"),
@@ -525,9 +546,15 @@ struct ClueGraph3DView: View {
         let length = simd_length(diff)
         let mid = (start + end) / 2
 
+        var mat = PhysicallyBasedMaterial()
+        mat.baseColor = .init(tint: color)
+        mat.metallic = 0.7
+        mat.roughness = 0.3
+        mat.blending = .transparent(opacity: .init(floatLiteral: Float(color.cgColor.alpha)))
+
         let entity = ModelEntity(
             mesh: .generateCylinder(height: length, radius: 0.003),
-            materials: [UnlitMaterial(color: color)]
+            materials: [mat]
         )
         entity.position = mid
 

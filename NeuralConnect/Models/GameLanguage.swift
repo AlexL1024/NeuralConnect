@@ -36,6 +36,6 @@ final class LanguageManager {
 }
 
 /// Convenience: pick EN or CN string based on current language.
-func L(_ en: String, _ zh: String) -> String {
+nonisolated func L(_ en: String, _ zh: String) -> String {
     LanguageManager.shared.isEnglish ? en : zh
 }

@@ -16,9 +16,7 @@ struct HackOverlayView: View {
     @State private var phase: HackPhase = .connecting
     @State private var memories: [String: [TimestampedMemory]] = [:]
     @State private var selectedPartner: String?
-    @State private var displayMode: MemoryDisplayMode = .timeline
     @State private var glitchVisible = true
-    @State private var secretRevealed = false
     @State private var secretScore: Int = 0
 
     private var npcCharacter: NPCCharacter? {
@@ -27,11 +25,6 @@ struct HackOverlayView: View {
 
     private enum HackPhase {
         case connecting, scanning, extracting, results
-    }
-
-    private enum MemoryDisplayMode: String, CaseIterable {
-        case timeline
-        case graph
     }
 
     /// Sorted partner IDs for stable tab order.
@@ -45,7 +38,7 @@ struct HackOverlayView: View {
                 Color.black.opacity(0.4)
                     .ignoresSafeArea()
 
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
                     // Header
                     if phase != .results {
                         Text("NEURAL CONNECT")
@@ -71,11 +64,13 @@ struct HackOverlayView: View {
                                 .frame(minWidth: 120)
                         }
                         .buttonStyle(.capsuleMaterial())
+                        .padding(.top, 4)
                     }
                 }
-                .padding(24)
-                .frame(width: phase == .results ? geometry.size.width * 0.85 : geometry.size.width * 2 / 3,
-                       height: geometry.size.height * 0.6)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 16)
+                .frame(width: phase == .results ? geometry.size.width * 0.88 : geometry.size.width * 2 / 3,
+                       height: geometry.size.height * 0.75)
                 .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -120,11 +115,10 @@ struct HackOverlayView: View {
                 .padding(.vertical, 12)
         } else {
             HStack(alignment: .center, spacing: 16) {
-                // Left: profile image + name (only in timeline mode)
-                if displayMode == .timeline {
-                    let character = npcCharacter
-                    let npcColor = character.flatMap { Color(hex: $0.dotColorHex) } ?? .cyan
-                    VStack(spacing: 8) {
+                // Left: profile image + name
+                let character = npcCharacter
+                let npcColor = character.flatMap { Color(hex: $0.dotColorHex) } ?? .cyan
+                VStack(spacing: 8) {
                         if let imageName = character?.profileImage,
                            let uiImage = UIImage(named: imageName) {
                             Image(uiImage: uiImage)
@@ -140,16 +134,6 @@ struct HackOverlayView: View {
                         Text(npcName)
                             .font(.system(size: 12, weight: .bold, design: .monospaced))
                             .foregroundStyle(.cyan)
-
-                        // Secret text (above the banner)
-                        if secretRevealed, let secret = character?.localizedSecret {
-                            Text(secret)
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 4)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
 
                         // Secret exposure bar
                         if secretScore > 0 {
@@ -169,49 +153,17 @@ struct HackOverlayView: View {
                                     .foregroundStyle(.white.opacity(0.6))
                             }
                         }
-
-                        // Secret status banner
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                secretRevealed.toggle()
-                            }
-                        } label: {
-                            Text(secretRevealed
-                                 ? L("ULTIMATE SECRET", "终极秘密")
-                                 : L("ULTIMATE SECRET\nNOT YET REVEALED", "终极秘密\n未揭开"))
-                                .font(.system(size: 9, weight: .bold, design: .monospaced))
-                                .foregroundStyle(.black)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 6)
-                                .frame(maxWidth: .infinity)
-                                .background(RoundedRectangle(cornerRadius: 6).fill(secretScore >= 7 ? Color.red : npcColor))
-                        }
-                    }
-                    .frame(width: 100)
                 }
+                .frame(width: 100)
 
-                // Right: tabs + timeline/graph
+                // Right: timeline
                 VStack(spacing: 4) {
-                    displayModePicker()
-
-                    Group {
-                        switch displayMode {
-                        case .timeline:
-                            tabBar()
-                            let partnerId = selectedPartner ?? sortedPartnerIds.first ?? ""
-                            let items = memories[partnerId] ?? []
-                            ScrollView {
-                                MemoryTimelineView(items: items)
-                                    .padding(.vertical, 4)
-                            }
-                        case .graph:
-                            EntityGraphView(
-                                memories: playerInvestigation,
-                                fetchConversationMetaAction: fetchConversationMetaAction,
-                                secretScore: secretScore
-                            )
-                        }
+                    tabBar()
+                    let partnerId = selectedPartner ?? sortedPartnerIds.first ?? ""
+                    let items = memories[partnerId] ?? []
+                    ScrollView {
+                        MemoryTimelineView(items: items)
+                            .padding(.vertical, 4)
                     }
                     .frame(maxHeight: geometry.size.height * 0.45)
                 }
@@ -233,7 +185,6 @@ struct HackOverlayView: View {
 
                     Button {
                         selectedPartner = partnerId
-                        displayMode = .timeline
                     } label: {
                         HStack(spacing: 4) {
                             Circle()
@@ -258,16 +209,6 @@ struct HackOverlayView: View {
                 }
             }
         }
-    }
-
-    @ViewBuilder
-    private func displayModePicker() -> some View {
-        let g = npcCharacter?.gender ?? .male
-        Picker("", selection: $displayMode) {
-            Text(L("\(g.possessiveEN) Memory", "\(g.possessiveZH)记忆")).tag(MemoryDisplayMode.timeline)
-            Text(L("My Clues", "我的线索")).tag(MemoryDisplayMode.graph)
-        }
-        .pickerStyle(.segmented)
     }
 
     // MARK: - Hack sequence
