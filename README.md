@@ -28,6 +28,8 @@ https://youtu.be/6jui5UAV2CI
 ## TestFlight Beta
 https://testflight.apple.com/join/KgeybCZp
 
+iOS iPhone version available now.
+
 ## What players do
 
 NeuralConnect is built around a simple loop:
@@ -54,19 +56,19 @@ The ship is divided into six zones: `Gym`, `Medbay`, `Lab`, `Power Room`, `Bar`,
 <img src="assets/Profile_Captain.png" width="200"><br>
 <strong>Captain</strong><br>
 <em>Acting Captain</em><br>
-Stepped in when the previous captain vanished. First time in command, former freight hauler. Goes to the bar to decompress under pressure.
+First time on the Mars route. Former freight hauler who took this position at any cost — but his true purpose remains unknown.
 </td>
 <td width="33%" align="center" valign="top">
 <img src="assets/Profile_Doctor.jpg" width="200"><br>
 <strong>Doctor</strong><br>
 <em>Ship Doctor / Cybernetic Surgeon</em><br>
-Fifteen years in cybernetic surgery, quit to build a clinic on Mars. Enjoys classical music, always up early for coffee.
+Fifteen years in cybernetic surgery. Seems unusually fascinated by prosthetic modifications — perhaps too fascinated.
 </td>
 <td width="33%" align="center" valign="top">
 <img src="assets/Profile_AI.png" width="200"><br>
 <strong>AI Android</strong><br>
 <em>Navigation Assistant</em><br>
-Third Mars voyage, name given by the first crew. Speaks in precise data, looks human but moves with mechanical tells.
+She knows everyone's secrets. But her core protocols forbid her from speaking them aloud.
 </td>
 </tr>
 <tr>
@@ -74,19 +76,19 @@ Third Mars voyage, name given by the first crew. Speaks in precise data, looks h
 <img src="assets/Profile_Waiter.png" width="200"><br>
 <strong>Attendant</strong><br>
 <em>Flight Attendant</em><br>
-Three years as a flight attendant, previously on the lunar route. Expert at guiding people into talking through casual chat.
+Three years as a flight attendant. Has an almost obsessive curiosity about the AI Android.
 </td>
 <td width="33%" align="center" valign="top">
 <img src="assets/Profile_GemGuy.png" width="200"><br>
 <strong>Gym Guy</strong><br>
 <em>Regular Passenger</em><br>
-Economy class to Mars for a job. Used to work at a hydroelectric station, runs ten kilometers daily, occasionally reads paper books.
+Runs ten kilometers daily. Constantly reminisces about his hydroelectric station job — as if he's running from something.
 </td>
 <td width="33%" align="center" valign="top">
 <img src="assets/Profile_Yangman.jpeg" width="200"><br>
 <strong>The Stowaway</strong><br>
 <em>Odd-jobs Hand</em><br>
-Caught and put to work as odd-jobs hand. Wants a fresh start on Mars, picks up mechanics fast.
+Stowed away on this ship — a feat even the world's best hacker would find difficult to pull off.
 </td>
 </tr>
 </table>
