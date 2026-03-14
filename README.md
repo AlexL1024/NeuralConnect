@@ -137,6 +137,12 @@ The game won’t start until EverMemOS is configured:
 3. (Optional) Configure **AI Dialogue Engine**
    - Enable DeepSeek and enter an API key, or rely on Apple Intelligence if available on your device
 
+## Future Plan
+
+The current clue board is a concept mockup for exploration and demonstration. The goal is to evolve it into a fully functional 3D knowledge graph powered by [EverMemOS](https://github.com/EverMind-AI/EverMemOS)'s Cell architecture — where each clue becomes a living memory cell that can form dynamic connections, surface hidden patterns, and reveal the narrative as players investigate.
+
+![3D Clue Board Mockup](assets/clue-board-mockup.png)
+
 ## Privacy / data
 
 NeuralConnect can be run in a “local-only / offline” style depending on what you enable in Settings.
@@ -148,12 +154,6 @@ If you opt in to external services, the app may send:
 Nothing is sent until you enter credentials/URLs in Settings.
 
 Full privacy policy: [docs/privacy-policy.md](docs/privacy-policy.md)
-
-## Future Plan
-
-The current clue board is a concept mockup for exploration and demonstration. The goal is to evolve it into a fully functional knowledge graph powered by EverMemOS's Cell architecture — where each clue becomes a living memory cell that can form dynamic connections, surface hidden patterns, and reveal the narrative as players investigate.
-
-![Clue Board Mockup](assets/clue-board-mockup.png)
 
 ## Disclaimer
 
