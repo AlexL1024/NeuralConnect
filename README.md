@@ -14,6 +14,10 @@
   An iOS narrative mystery set aboard a Mars-bound cyberpunk shuttle.
 </p>
 
+<p align="center">
+  <strong>🚀 App under review — Coming soon to public TestFlight</strong>
+</p>
+
 ---
 
 ![Poster](assets/Poster.jpg)
